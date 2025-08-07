@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Chat Box</title>
+  <style>
+    /* Floating button */
+    #whatsapp-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Chat container */
+    #whatsapp-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      display: none;
+      z-index: 999;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #whatsapp-box header {
+      background: #25D366;
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #whatsapp-box .content {
+      padding: 15px;
+    }
+
+    #whatsapp-box input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    #whatsapp-box button {
+      width: 100%;
+      padding: 10px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+    }
+
+    #whatsapp-box button:hover {
+      background: #1ebe57;
+    }
+
+    /* Optional close button inside the header */
+    #whatsapp-close {
+      float: right;
+      cursor: pointer;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating WhatsApp Toggle Button -->
+<button id="whatsapp-toggle">💬</button>
+
+<!-- WhatsApp Chat Box -->
+<div id="whatsapp-box">
+  <header>
+    Chat with us
+    <span id="whatsapp-close">✖</span>
+  </header>
+  <div class="content">
+    <input type="text" id="wa-message" placeholder="Type your message here..." />
+    <button onclick="sendWhatsApp()">Send on WhatsApp</button>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const toggleBtn = document.getElementById('whatsapp-toggle');
+  const chatBox = document.getElementById('whatsapp-box');
+  const closeBtn = document.getElementById('whatsapp-close');
+
+  toggleBtn.onclick = () => {
+    chatBox.style.display = chatBox.style.display === 'none' || chatBox.style.display === '' ? 'block' : 'none';
+  };
+
+  closeBtn.onclick = () => {
+    chatBox.style.display = 'none';
+  };
+
+  function sendWhatsApp() {
+    const phone = "27723356685"; // <-- Replace with your number (no +, no spaces)
+    const message = encodeURIComponent(document.getElementById("wa-message").value.trim());
+    if (message.length > 0) {
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    } else {
+      alert("Please enter a message before sending.");
+    }
+  }
+</script>
+
+</body>
+</html>
